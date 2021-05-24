@@ -1,5 +1,4 @@
 
-
 namespace University.Models
 {
   public class CourseStudent

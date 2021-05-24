@@ -62,6 +62,12 @@ namespace University.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+    public ActionResult AddCourse(int id)
+    {
+      var thisStudent = _db.Students.FirstOrDefault(student => student.StudentId == id);
+      ViewBag.CourseId = new SelectList(_db.Courses, "CourseId", "Name");
+      return View(thisStudent);
+    }
 
   }
 }
