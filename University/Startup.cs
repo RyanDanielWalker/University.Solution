@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using Univerity.Models;
+using University.Models;
 
 
-namespace Univerity
+namespace University
 {
   public class Startup
   {
