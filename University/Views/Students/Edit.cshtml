@@ -1,0 +1,25 @@
+@{
+  Layout = "_Layout";
+}
+
+@model University.Models.Student
+
+<h4>Edit @Html.DisplayFor(model => model.Name)</h4>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.StudenId)
+
+  @Html.LabelFor(model => model.Name)
+  @Html.EditorFor(model => model.Name)
+
+  @Html.LabelFor(model => model.Enrollment)
+  @Html.EditorFor(model => model.Enrollment)
+
+  @Html.Label("Select Course")
+  @Html.DropDownList("CourseId")
+
+  <input type="submit" value="Save" />
+}
+
+<p>@Html.ActionLink("View all students", "Index")</p>

@@ -2,12 +2,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using ToDoList.Models;
+using University.Models;
 using System.Linq;
 
 namespace University.Controllers
 {
-  public class StudentsController : Controllers
+  public class StudentsController : Controller
   {
     private readonly UniversityContext _db;
     public StudentsController(UniversityContext db)
@@ -20,7 +20,7 @@ namespace University.Controllers
       return View(_db.Students.ToList());
     }
 
-    public ActionsResults Details(int id)
+    public ActionResult Details(int id)
     {
       var thisStudent = _db.Students
       .Include(student => student.JoinEntities)
@@ -29,7 +29,39 @@ namespace University.Controllers
       return View(thisStudent);
     }
 
-    publ
+    public ActionResult Create()
+    {
+      ViewBag.CourseId = new SelectList(_db.Courses, "CourseId", "Name");
+      return View();
+    }
+    public ActionResult Create(Student student, int CourseId)
+    {
+      _db.Students.Add(student);
+      _db.SaveChanges();
+      if (CourseId != 0)
+      {
+        _db.CourseStudent.Add(new CourseStudent() { CourseId = CourseId, StudentId = student.StudentId });
+      }
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+    public ActionResult Edit(int id)
+    {
+      var thisStudent = _db.Students.FirstOrDefault(student => student.StudentId == id);
+      ViewBag.CategoryId = new SelectList(_db.Courses, "CourseId", "Name");
+      return View(thisStudent);
+    }
+    [HttpPost]
+    public ActionResult Edit(Student student, int CourseId)
+    {
+      if (CourseId != 0)
+      {
+        _db.CourseStudent.Add(new CourseStudent() { CourseId = CourseId, StudentId = student.StudentId });
+      }
+      _db.Entry(student).State = EntityState.Modified;
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
 
   }
 }
