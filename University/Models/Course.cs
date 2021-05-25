@@ -6,12 +6,14 @@ namespace University.Models
   {
     public Course()
     {
-      this.JoinEntities = new HashSet<CourseStudent>();
+      this.JoinEntities = new HashSet<CourseDepartmentStudent>();
     }
     public int CourseId { get; set; }
     public string Name { get; set; }
     public int Number { get; set; }
-    public virtual ICollection<CourseStudent> JoinEntities { get; set; }
+
+    public int MyInt { get; set; }
+    public virtual ICollection<CourseDepartmentStudent> JoinEntities { get; set; }
 
     public string NameNumber
     {

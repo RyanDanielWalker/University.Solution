@@ -41,7 +41,7 @@ namespace University.Controllers
       _db.SaveChanges();
       if (CourseId != 0)
       {
-        _db.CourseStudent.Add(new CourseStudent() { CourseId = CourseId, StudentId = student.StudentId });
+        _db.CourseDepartmentStudent.Add(new CourseDepartmentStudent() { CourseId = CourseId, StudentId = student.StudentId });
       }
       _db.SaveChanges();
       return RedirectToAction("Index");
@@ -49,7 +49,7 @@ namespace University.Controllers
     public ActionResult Edit(int id)
     {
       var thisStudent = _db.Students.FirstOrDefault(student => student.StudentId == id);
-      ViewBag.CategoryId = new SelectList(_db.Courses, "CourseId", "Name");
+      ViewBag.CourseId = new SelectList(_db.Courses, "CourseId", "Name");
       return View(thisStudent);
     }
     [HttpPost]
@@ -57,7 +57,7 @@ namespace University.Controllers
     {
       if (CourseId != 0)
       {
-        _db.CourseStudent.Add(new CourseStudent() { CourseId = CourseId, StudentId = student.StudentId });
+        _db.CourseDepartmentStudent.Add(new CourseDepartmentStudent() { CourseId = CourseId, StudentId = student.StudentId });
       }
       _db.Entry(student).State = EntityState.Modified;
       _db.SaveChanges();
@@ -74,7 +74,7 @@ namespace University.Controllers
     {
       if (CourseId != 0)
       {
-        _db.CourseStudent.Add(new CourseStudent() { CourseId = CourseId, StudentId = student.StudentId });
+        _db.CourseDepartmentStudent.Add(new CourseDepartmentStudent() { CourseId = CourseId, StudentId = student.StudentId });
       }
       _db.SaveChanges();
       return RedirectToAction("Index");
@@ -95,11 +95,10 @@ namespace University.Controllers
     [HttpPost]
     public ActionResult DeleteCourse(int joinId)
     {
-      var joinEntry = _db.CourseStudent.FirstOrDefault(entry => entry.CourseStudentId == joinId);
-      _db.CourseStudent.Remove(joinEntry);
+      var joinEntry = _db.CourseDepartmentStudent.FirstOrDefault(entry => entry.CourseDepartmentStudentId == joinId);
+      _db.CourseDepartmentStudent.Remove(joinEntry);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
   }
-
 }
