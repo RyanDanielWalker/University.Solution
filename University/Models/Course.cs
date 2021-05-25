@@ -12,5 +12,13 @@ namespace University.Models
     public string Name { get; set; }
     public int Number { get; set; }
     public virtual ICollection<CourseStudent> JoinEntities { get; set; }
+
+    public string NameNumber
+    {
+      get
+      {
+        return Name + Number;
+      }
+    }
   }
 }
